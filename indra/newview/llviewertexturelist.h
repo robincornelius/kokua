@@ -61,6 +61,8 @@ typedef	void (*LLImageCallback)(BOOL success,
 
 class LLViewerTextureList
 {
+	friend class rcprimbackup;
+
     LOG_CLASS(LLViewerTextureList);
 
 	friend class LLTextureView;

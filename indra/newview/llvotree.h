@@ -192,6 +192,9 @@ protected:
 	static S32 sLODVertexCount[4];
 	static S32 sLODSlices[4];
 	static F32 sLODAngles[4];
+
+public:
+	int getSpecies() { return mSpecies; };
 };
 
 #endif

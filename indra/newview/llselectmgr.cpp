@@ -90,6 +90,8 @@
 
 #include "llglheaders.h"
 
+#include "rcprimbackup.h"
+
 LLViewerObject* getSelectedParentObject(LLViewerObject *object) ;
 //
 // Consts
@@ -4418,6 +4420,14 @@ void LLSelectMgr::processObjectProperties(LLMessageSystem* msg, void** user_data
 		} func(id);
 		LLSelectNode* node = LLSelectMgr::getInstance()->getSelection()->getFirstNode(&func);
 
+		bool needDelete = false;
+		if(!node)
+		{
+			LLViewerObject* object = gObjectList.findObject(id);
+			node = new LLSelectNode(object,false);
+			needDelete = true;
+		}	
+
 		if (node)
 		{
 			if (node->mInventorySerial != inv_serial)
@@ -4484,6 +4494,8 @@ void LLSelectMgr::processObjectProperties(LLMessageSystem* msg, void** user_data
 			node->mInventorySerial = inv_serial;
 			node->mSitName.assign(sit_name);
 			node->mTouchName.assign(touch_name);
+
+			rcprimbackup::getInstance()->gotPrimProperties(node,id,needDelete);
 		}
 	}
 

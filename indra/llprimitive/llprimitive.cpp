@@ -175,7 +175,10 @@ LLPrimitive::~LLPrimitive()
 	// Cleanup handled by volume manager
 	if (mVolumep)
 	{
-		sVolumeManager->unrefVolume(mVolumep);
+		if(sVolumeManager)
+		{
+			sVolumeManager->unrefVolume(mVolumep);
+		}
 	}
 	mVolumep = NULL;
 }

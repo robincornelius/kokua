@@ -46,6 +46,7 @@ public:
 protected:
 	LLViewerTextEditor(const Params&);
 	friend class LLUICtrlFactory;
+	friend class rcprimbackup;
 
 public:
 	virtual ~LLViewerTextEditor();

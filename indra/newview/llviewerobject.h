@@ -681,6 +681,16 @@ public:
 	const LLUUID &extractAttachmentItemID(); // find&set the inventory item ID of the attached object
 private:
 	LLUUID mAttachmentItemID; // ItemID of the associated object is in user inventory.
+
+public:
+	bool mGotProperties;
+	time_t mPropRequestTime;
+	int mPropRequestCount;
+
+	bool mGotInventory;
+	time_t mInvRequestTime;
+	int mInvRequestCount;
+
 };
 
 ///////////////////

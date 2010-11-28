@@ -950,14 +950,14 @@ void LLXMLNode::writeToOstream(std::ostream& output_stream, const std::string& i
 	BOOL has_default_length = mDefault.isNull()?FALSE:(mLength == mDefault->mLength);
 
 	// stream the name
-	output_stream << indent << "<" << mName->mString << "\n";
+	output_stream << indent << "<" << mName->mString;
 
 	if (use_type_decorations)
 	{
 		// ID
 		if (mID != "")
 		{
-			output_stream << indent << " id=\"" << mID << "\"\n";
+			output_stream << " id=\"" << mID << "\"";
 		}
 
 		// Type
@@ -1052,13 +1052,13 @@ void LLXMLNode::writeToOstream(std::ostream& output_stream, const std::string& i
 				std::string attr_str = llformat(" %s=\"%s\"",
 											 attr.c_str(),
 											 escapeXML(child->mValue).c_str());
-				output_stream << indent << attr_str << "\n";
+				output_stream << attr_str;
 			}
 		}
 	}
 
 	// erase last \n before attaching final > or />
-	output_stream.seekp(-1, std::ios::cur);
+	//output_stream.seekp(-1, std::ios_base::cur);
 
 	if (mChildren.isNull() && mValue == "")
 	{
@@ -1067,9 +1067,10 @@ void LLXMLNode::writeToOstream(std::ostream& output_stream, const std::string& i
 	}
 	else
 	{
-		output_stream << ">\n";
+		output_stream << ">";
 		if (mChildren.notNull())
 		{
+			output_stream << "\n";
 			// stream non-attributes
 			std::string next_indent = indent + "    ";
 			for (LLXMLNode* child = getFirstChild(); child; child = child->getNextSibling())
@@ -1080,9 +1081,18 @@ void LLXMLNode::writeToOstream(std::ostream& output_stream, const std::string& i
 		if (!mValue.empty())
 		{
 			std::string contents = getTextContents();
-			output_stream << indent << "    " << escapeXML(contents) << "\n";
+			//output_stream << indent << "    " << escapeXML(contents) << "\n";
+			output_stream << escapeXML(contents);
 		}
-		output_stream << indent << "</" << mName->mString << ">\n";
+
+		if (mChildren.notNull())
+		{
+			output_stream << indent << "</" << mName->mString << ">\n";
+		}
+		else
+		{
+			output_stream << "</" << mName->mString << ">\n";
+		}
 	}
 }
 
@@ -2536,17 +2546,41 @@ void LLXMLNode::setDoubleValue(U32 length, const F64 *array, Encoding encoding, 
 // static
 std::string LLXMLNode::escapeXML(const std::string& xml)
 {
+	static bool inComment=false;
 	std::string out;
 	for (std::string::size_type i = 0; i < xml.size(); ++i)
 	{
 		char c = xml[i];
+		char cc = 0;
 		switch(c)
 		{
 		case '"':	out.append("&quot;");	break;
 		case '\'':	out.append("&apos;");	break;
 		case '&':	out.append("&amp;");	break;
-		case '<':	out.append("&lt;");		break;
-		case '>':	out.append("&gt;");		break;
+		case '<':	
+			if(i+1<xml.size())
+			{
+				cc=xml[i+1];
+				if(cc == '!')
+				{
+					inComment=true;
+					out.push_back(c);
+					break; // its fine
+				}
+			}
+			out.append("&lt;");		
+			break;
+
+		case '>':
+			if(inComment==true)
+			{	
+				inComment=false;
+				out.push_back(c);
+				break;
+			}
+			out.append("&gt;");		
+			break;
+
 		default:	out.push_back(c);		break;
 		}
 	}

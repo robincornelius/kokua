@@ -33,6 +33,7 @@
 
 #include "llcompilequeue.h"
 #include "llcallfloater.h"
+#include "exportFloater.h"
 #include "llfloaterabout.h"
 #include "llfloateranimpreview.h"
 #include "llfloaterauction.h"
@@ -156,6 +157,8 @@ void LLViewerFloaterReg::registerFloaters()
 	LLFloaterReg::add("env_windlight", "floater_windlight_options.xml", (LLFloaterBuildFunc)&LLFloaterReg::build<LLFloaterWindLight>);
 
 	LLFloaterReg::add("event", "floater_event.xml", (LLFloaterBuildFunc)&LLFloaterReg::build<LLFloaterEvent>);
+
+	LLFloaterReg::add("export", "floater_export.xml", (LLFloaterBuildFunc)&LLFloaterReg::build<exportFloater>);
 	
 	LLFloaterReg::add("font_test", "floater_font_test.xml", (LLFloaterBuildFunc)&LLFloaterReg::build<LLFloaterFontTest>);
 

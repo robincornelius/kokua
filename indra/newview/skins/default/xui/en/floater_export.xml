@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater
+ legacy_header_height="18"
+ can_minimize="false"
+ height="200"
+ layout="topleft"
+ name="Export progress"
+ help_topic="export"
+ save_rect="true"
+ width="300">
+   <text
+     type="string"
+     length="1"
+     follows="left|top"
+     height="18"
+     layout="topleft"
+     left="12"
+     name="properties_label"
+     top="24"
+     width="100">
+        Prim Properties
+    </text>
+
+	<progress_bar
+		name="properties_progress_bar"
+		color_bg="1 1 1 1"
+		color_bar="1 1 1 0.96"
+		follows="left|right|top"
+		height="8"
+		layout="topleft"
+		top="24"
+		left="120"
+		width="100" 
+		tool_tip="Media is Loading"/>
+
+	<text
+	type="string"
+	length="1"
+	follows="left|top"
+	height="18"
+	layout="topleft"
+	left="240"
+	name="properties_amount"
+	top="24"
+	width="50">
+		0/0
+	</text>
+
+
+	<text
+     type="string"
+     length="1"
+     follows="left|top"
+     height="18"
+     layout="topleft"
+     left="12"
+     name="inventories_label"
+     top="39"
+     width="150">
+		Prim Inventories
+	</text>
+
+	<progress_bar
+		name="inventories_progress_bar"
+		color_bg="1 1 1 1"
+		color_bar="1 1 1 0.96"
+		follows="left|right|top"
+		height="8"
+		layout="topleft"
+		top="39"
+		left="120"
+		width="100"
+		tool_tip="Media is Loading"/>
+
+	<text
+	type="string"
+	length="1"
+	follows="left|top"
+	height="18"
+	layout="topleft"
+	left="240"
+	name="inventory_amount"
+	top="39"
+	width="50">
+		0/0
+	</text>
+	
+	<text
+     type="string"
+     length="1"
+     follows="left|top"
+     height="18"
+     layout="topleft"
+     left="12"
+     name="textures_label"
+     top="54"
+     width="150">
+		Textures
+	</text>
+	
+	<progress_bar
+		name="textures_progress_bar"
+		color_bg="1 1 1 1"
+		color_bar="1 1 1 0.96"
+		follows="left|right|top"
+		height="8"
+		layout="topleft"
+		top="54"
+		left="120"
+		width="100" 
+		tool_tip="Media is Loading"/>
+	
+	<text
+	type="string"
+	length="1"
+	follows="left|top"
+	height="18"
+	layout="topleft"
+	left="240"
+	name="textures_amount"
+	top="54"
+	width="50">
+		0/0
+	</text>
+	
+	<text
+     type="string"
+     length="1"
+     follows="left|top"
+     height="18"
+     layout="topleft"
+     left="12"
+     name="primxml_label"
+     top="69"
+     width="150">
+		Prim XML
+	</text>
+	
+	<progress_bar
+		name="xml_progress_bar"
+		color_bg="1 1 1 1"
+		color_bar="1 1 1 0.96"
+		follows="left|right|top"
+		height="8"
+		layout="topleft"
+		top="69"
+		left="120"
+		width="100" 
+		tool_tip="Media is Loading"/>
+	
+	<text
+	type="string"
+	length="1"
+	follows="left|top"
+	height="18"
+	layout="topleft"
+	left="240"
+	name="xml_amount"
+	top="69"
+	width="50">
+		0/0
+	</text>
+
+
+	<text
+     type="string"
+     length="1"
+     follows="left|top"
+     height="18"
+     layout="topleft"
+     left="12"
+     name="primxml_label"
+     top="84"
+     width="150">
+		Assets
+	</text>
+
+	<progress_bar
+		name="assets_progress_bar"
+		color_bg="1 1 1 1"
+		color_bar="1 1 1 0.96"
+		follows="left|right|top"
+		height="8"
+		layout="topleft"
+		top="84"
+		left="120"
+		width="100"
+		tool_tip="Media is Loading"/>
+
+	<text
+	type="string"
+	length="1"
+	follows="left|top"
+	height="18"
+	layout="topleft"
+	left="240"
+	name="asset_amount"
+	top="84"
+	width="50">
+		0/0
+	</text>
+
+	<check_box
+		  enabled="true"
+		  height="16"
+		  label="Export prim contents"
+		  layout="topleft"
+		  left="12"
+		  top="114" 
+		  name="export_contents"
+		  tool_tip=""
+		  top_pad="3"
+		  width="100" />
+
+	<check_box
+		  enabled="true"
+		  height="16"
+		  label="Export textures"
+		  layout="topleft"
+		  left="12"
+		  top="129"
+		  name="export_textures"
+		  tool_tip=""
+		  top_pad="3"
+		  width="100" />
+	
+	<button
+	 top="170"
+	 left="12" 
+     height="23"
+     label="Export..."
+     label_selected="Export..."
+     layout="topleft"
+     left_pad="5"
+     name="export_btn"
+     width="100" />
+
+	<button
+	 top="170"
+	 left="122"
+     height="23"
+     label="Abort"
+     label_selected="Abort"
+     layout="topleft"
+     left_pad="5"
+     name="abort_btn"
+     width="100" />
+	
+</floater>

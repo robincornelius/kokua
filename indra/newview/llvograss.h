@@ -120,5 +120,8 @@ private:
 	S32 mNumBlades;
 
 	static SpeciesMap sSpeciesTable;
+
+public:
+	int getSpecies() { return mSpecies; };
 };
 #endif // LL_VO_GRASS_

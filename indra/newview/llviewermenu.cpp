@@ -104,6 +104,9 @@
 #include "lleconomy.h"
 #include "boost/unordered_map.hpp"
 
+//#include "rcprimbackup.h"
+#include "exportFloater.h"
+
 using namespace LLVOAvatarDefines;
 
 static boost::unordered_map<std::string, LLStringExplicit> sDefaultItemLabels;
@@ -5049,6 +5052,30 @@ void handle_object_delete()
 		return;
 }
 
+bool enable_object_export()
+{
+	// FIX ME make this do something useful
+	return true;
+}
+
+void handle_object_export()
+{
+		if (LLSelectMgr::getInstance())
+		{
+			LLViewerObject* object = LLSelectMgr::getInstance()->getSelection()->getPrimaryObject();
+			if (!object) return;
+
+			LLVOAvatar* avatar = find_avatar_from_object(object); 
+
+			if (!avatar)
+			{
+				//rcprimbackup::getInstance()->exportSelectedObjects();
+				exportFloater::show(LLUUID::null);
+			}
+		}
+
+}
+
 void handle_force_delete(void*)
 {
 	LLSelectMgr::getInstance()->selectForceDelete();
@@ -8186,7 +8213,10 @@ void initialize_menus()
 	enable.add("Avatar.EnableMute", boost::bind(&enable_object_mute));
 	enable.add("Object.EnableMute", boost::bind(&enable_object_mute));
 	enable.add("Object.EnableBuy", boost::bind(&enable_buy_object));
-	commit.add("Object.ZoomIn", boost::bind(&handle_look_at_selection, "zoom"));
+	commit.add("Object.ZoomIn", boost::bind(&handle_look_at_selection,"zoom"));
+
+	enable.add("Object.EnableExport", boost::bind(&enable_object_export));
+	commit.add("Object.Export", boost::bind(&handle_object_export));
 
 	// Attachment pie menu
 	enable.add("Attachment.Label", boost::bind(&onEnableAttachmentLabel, _1, _2));
