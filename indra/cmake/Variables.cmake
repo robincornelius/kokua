@@ -54,19 +54,20 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   set(LINUX ON BOOl FORCE)
 
   # If someone has specified a word size, use that to determine the
-  # architecture.  Otherwise, let the architecture specify the word size.
+  # architecture.  Otherwise, let the compiler specify the word size.
+  # Using uname will break under chroots and other cross arch compiles. RC
   if (WORD_SIZE EQUAL 32)
     set(ARCH i686)
   elseif (WORD_SIZE EQUAL 64)
     set(ARCH x86_64)
   else (WORD_SIZE EQUAL 32)
-    execute_process(COMMAND uname -m COMMAND sed s/i.86/i686/
-                    OUTPUT_VARIABLE ARCH OUTPUT_STRIP_TRAILING_WHITESPACE)
-    if (ARCH STREQUAL x86_64)
-      set(WORD_SIZE 64)
-    else (ARCH STREQUAL x86_64)
+    if(CMAKE_SIZEOF_VOID_P MATCHES 4)
+      set(ARCH i686)
       set(WORD_SIZE 32)
-    endif (ARCH STREQUAL x86_64)
+    else(CMAKE_SIZEOF_VOID_P MATCHES 4)
+      set(ARCH x86_64)
+      set(WORD_SIZE 64)
+    endif(CMAKE_SIZEOF_VOID_P MATCHES 4)
   endif (WORD_SIZE EQUAL 32)
 
   set(LL_ARCH ${ARCH}_linux)
@@ -121,7 +122,7 @@ endif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 set(GRID agni CACHE STRING "Target Grid")
 
 set(VIEWER ON CACHE BOOL "Build Second Life viewer.")
-set(VIEWER_CHANNEL "LindenDeveloper" CACHE STRING "Viewer Channel Name")
+set(VIEWER_CHANNEL "Kokua Viewer" CACHE STRING "Viewer Channel Name")
 set(VIEWER_LOGIN_CHANNEL ${VIEWER_CHANNEL} CACHE STRING "Fake login channel for A/B Testing")
 
 set(STANDALONE OFF CACHE BOOL "Do not use Linden-supplied prebuilt libraries.")

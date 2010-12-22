@@ -13,7 +13,7 @@ if (COMMAND cmake_policy)
   cmake_policy(SET CMP0003 OLD)
 endif (COMMAND cmake_policy)
 
-set(ROOT_PROJECT_NAME "SecondLife" CACHE STRING
+set(ROOT_PROJECT_NAME "Kokua" CACHE STRING
     "The root project/makefile/solution name. Defaults to SecondLife.")
 project(${ROOT_PROJECT_NAME})
 
@@ -99,7 +99,7 @@ if (VIEWER)
   endif (LINUX)
 
   add_subdirectory(${VIEWER_PREFIX}newview)
-  add_dependencies(viewer secondlife-bin)
+  add_dependencies(viewer kokua-bin)
 endif (VIEWER)
 
 # Linux builds the viewer and server in 2 separate projects
@@ -123,6 +123,8 @@ if (SERVER)
   endif (WINDOWS)
 endif (SERVER)
 
-# Define after the custom viewer and server targets are created so individual
-# apps can add themselves as dependencies
-add_subdirectory(${INTEGRATION_TESTS_PREFIX}integration_tests)
+if (LL_TESTS)
+  # Define after the custom viewer and server targets are created so
+  # individual apps can add themselves as dependencies
+  add_subdirectory(${INTEGRATION_TESTS_PREFIX}integration_tests)
+endif (LL_TESTS)
